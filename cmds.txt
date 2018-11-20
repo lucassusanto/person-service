@@ -1,0 +1,20 @@
+# Docker Individual
+docker run -d --name person1 person_service
+docker run -d --name person2 person_service
+docker run -d --name reverse -p 9999:8080 nginx-rp
+
+docker logs person1
+docker logs person2
+docker logs reverse
+
+docker rm -f person1 person2 reverse
+
+# Docker Compose (Batch)
+docker-compose up
+docker-composer scale personservice=5
+docker-compose down
+
+# GET from terminal
+curl localhost:9999/auth -d '{"username": "slamet", "password": "hello"}'
+curl localhost:9999/personlist -H "Authorization:"
+

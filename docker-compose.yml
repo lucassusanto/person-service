@@ -3,6 +3,22 @@ services:
   reverseproxy:
      image: nginx-reverseproxy
      ports: 
-        - "9999:8080"
+        - "9001:8080"
+     networks:
+        isolated_nw:
+          ipv4_address: 172.51.0.2
+
   personservice:
       image: person_service
+      networks:
+        - isolated_nw
+      depends_on: 
+        - reverseproxy
+
+networks:
+ isolated_nw:
+  driver: bridge
+  ipam:
+   config:
+    - subnet: 172.51.0.0/16
+      gateway: 172.51.0.1
